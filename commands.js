@@ -1,17 +1,25 @@
 // The stdin 'data' event fires after a user types in a line
-function pwd(){
-	
-	process.stdin.on('data', function (data) {
-	  var cmd = data.toString().trim(); // remove the newline
-	  	if(cmd === 'date'){
-	  		var dt = new Date();
-	  		var utcDate = dt.toUTCString();
-	  		console.log(utcDate);
-	  	}
-	  	process.stdout.write('\nprompt > ');
+const fs = require('fs');
 
-	});
+
+module.exports = {
+
+	pwd : function() {
+  		console.log(__filename);
+	},
+
+	ls: function(){
+		const currDir = __dirname;
+		fs.readdir(currDir, (err, files) => {
+			files.forEach(file => {
+				console.log(file);
+			});
+		})
+	},
+
+	date: function(){
+		var dt = new Date();
+  		var utcDate = dt.toUTCString();
+  		console.log(utcDate);
+	}
 }
-
-
-module.exports.pwd;
